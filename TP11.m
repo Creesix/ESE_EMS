@@ -11,8 +11,9 @@ mu0 = 4*pi*power(10,-7);
 %% Maillage : Discrétisation spatiale
 L = 2; % Longeur du domaine de calcul
 max_space = 201; % Nbr de points spatiaux (Nbr de champs E)
+alpha = 1.1;
 dz = L/(max_space-1);
-dt = sqrt(eps0*mu0)*dz;
+dt = alpha*sqrt(eps0*mu0)*dz;
 
 %% Discrétisation temporelle
 max_time = 100;
@@ -54,8 +55,12 @@ for n=1:max_time
     end
 end
 
-figure(11)
+figure(1)
 plot(E)
+title("on plot le champ E")
+ylabel("champ")
 
-figure(12)
+figure(2)
 plot(H)
+title("on plot le champ H")
+ylabel("champ")
