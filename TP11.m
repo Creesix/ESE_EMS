@@ -11,7 +11,7 @@ mu0 = 4*pi*power(10,-7);
 %% Maillage : Discrétisation spatiale
 L = 2; % Longeur du domaine de calcul
 max_space = 201; % Nbr de points spatiaux (Nbr de champs E)
-alpha = 1.1;
+alpha = 1.01;
 dz = L/(max_space-1);
 dt = alpha*sqrt(eps0*mu0)*dz;
 
@@ -46,9 +46,13 @@ for n=1:max_time
     end
     
     % Source
-   % E(center) = exp(-((t-t0)/spread)^2);
-   E(center) = exp( -((t-t0)/spread)*((t-t0)/spread));
-    
+    %E(center) = exp(-((t-t0)/spread)^2);
+    %E(center) = exp( -((t-t0)/spread)*((t-t0)/spread));
+
+    % Hard source
+    pulse = exp((-1)*((t-t0)/spread)^2);
+    E(center) = pulse;
+
     % Calcul du champ magnetique
     for k=1:max_space-1
         H(k) = H(k) + tau*(E(k+1) - E(k));
